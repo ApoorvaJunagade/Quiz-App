@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style2.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="nav">
+        <div id="title">
+            <h2>Profit And Loss</h2>
+            <div class="quiz-page">
+                <div class="container">
+                  <div class="timer">
+      
+                  </div>
+                  <div class="score">
+                     <h2> SCORE:</h2>
+                  </div>
+              </div>
+              <div class="quiz-container">
+                <div class="question-number">
+                    <div class="timer"> </div>
+                </div>
+                
+                <div class="question-text"></div>
+            
+            
+            </div>
+            <div class="choices">
+                
+            </div>
+            <div class="containerNextbtn">
+                <div class="nextbtn">
+                    Next
+                    </div>
+            </div>
+          </div>
+</div>
+<div class="result-page" style="display: none;">
+    <h2>Quiz Results</h2>
+    <div id="username"></div>
+    <p><strong>Attempted Questions:</strong> <span id="attempted"></span></p>
+    <p><strong>Correct Answers:</strong> <span id="correct"></span></p>
+    <p><strong>Wrong Answers:</strong> <span id="wrong"></span></p>
+    <p><strong>Score:</strong> <span id="score"></span></p>
+    <p><strong>Percentage:</strong> <span id="percentage"></span>%</p>
+    <div class="result">
+      <span class="resultbtn" id="startAgain">Start Again</span>
+    <span class="resultbtn" id="goHome">Go To Home</span>
+
+    </div>
+    
+</div>
+
+</body>
+</html>
+
+
+<script>
+    let timeLeft = 10;
+    let timerInterval;
+    let userAnswers = [];  // Array to store user's selected answers
+    let currentQuestionIndex = 0;
+    let selectedAnswer = null;  // Store selected answer for each question
+  
+    // Start the countdown when the page loads
+    window.onload = function() {
+        timerInterval = setInterval(updateTimer, 1000); // Update every second
+        loadQuestion();  // Load the first question
+    };
+  
+    // Function to update the timer
+    function updateTimer() {
+        if (timeLeft > 0) {
+            timeLeft--;
+            document.getElementsByClassName('timer')[0].textContent = timeLeft; // Update the timer display
+        } else {
+        clearInterval(timerInterval);
+        // Show an alert when time is up, and reload the first question when "OK" is clicked
+        if (confirm('Time is up! Do you want to restart the quiz?')) {
+            resetQuiz();  // Reset the quiz and load the first question
+         }
+         // else {
+        //     // Optionally, you can hide the quiz page if the user cancels
+        //     document.querySelector('.quiz-container').style.display = 'none'; // Adjusted to match your structure
+        // }
+    }
+    }
+    function resetQuiz() {
+    // Reset the quiz state
+    currentQuestionIndex = 0;
+    userAnswers = [];
+    selectedAnswer = null;
+    timeLeft = 10;
+
+    // Reset the score display
+    document.querySelector('.score').innerHTML = `<h2>SCORE:</h2>`;
+
+    // Restart the timer
+    clearInterval(timerInterval); // Clear any existing interval
+    timerInterval = setInterval(updateTimer, 1000); // Start a new interval
+
+    // Load the first question again
+    loadQuestion();
+
+    // Hide the result page and show the quiz page
+    document.querySelector('.result-page').style.display = 'none';
+    document.querySelector('.quiz-container').style.display = 'block'; // Adjusted to match your structure
+}
+
+    const ProfitandLossQuestions = [
+    {
+        question: "A shopkeeper buys a pen for $10 and sells it for $15. What is his profit percentage?",
+        choices: ["25%", "40%", "50%", "75%"],
+        correctAnswer: "50%"
+    },
+    {
+        question: "If a product is sold at a loss of 10% for $180, what was the original cost price?",
+        choices: ["$200", "$220", "$190", "$250"],
+        correctAnswer: "$200"
+    },
+    {
+        question: "A man bought a table for $500 and sold it at a profit of 20%. For how much did he sell it?",
+        choices: ["$550", "$600", "$700", "$750"],
+        correctAnswer: "$600"
+    },
+    {
+        question: "If an article is sold at a gain of 25%, and its cost price was $120, what is the selling price?",
+        choices: ["$130", "$140", "$150", "$160"],
+        correctAnswer: "$150"
+    },
+    {
+        question: "A trader gives a 10% discount on a product that costs $300. What is the selling price?",
+        choices: ["$270", "$280", "$250", "$260"],
+        correctAnswer: "$270"
+    },
+    {
+        question: "If a bicycle is sold for $400 at a loss of 20%, what was its cost price?",
+        choices: ["$500", "$450", "$420", "$480"],
+        correctAnswer: "$500"
+    },
+    {
+        question: "A shopkeeper makes a profit of 15% by selling a chair for $230. What was the cost price?",
+        choices: ["$200", "$210", "$220", "$240"],
+        correctAnswer: "$200"
+    },
+    {
+        question: "A product costs $500 and is sold for $450. What is the percentage of loss?",
+        choices: ["5%", "8%", "10%", "12%"],
+        correctAnswer: "10%"
+    },
+    {
+        question: "An article is bought for $600 and sold at a profit of 30%. What is the selling price?",
+        choices: ["$720", "$750", "$780", "$800"],
+        correctAnswer: "$780"
+    },
+    {
+        question: "A seller gives a discount of 5% on an article marked at $200. What is the selling price after the discount?",
+        choices: ["$180", "$185", "$190", "$195"],
+        correctAnswer: "$190"
+    }
+];
+
+
+
+
+const ProfitandLossQues = ProfitandLossQuestions; // Directly load from your predefined array
+localStorage.setItem('ProfitandLossQues', JSON.stringify(ProfitandLossQuestions));  
+    // Function to load a question and its choices
+    function loadQuestion() {
+        const storedQuestions = JSON.parse(localStorage.getItem('ProfitandLossQues'));
+  
+        if (storedQuestions && storedQuestions.length > 0) {
+            // Display the current question
+            document.querySelector('.question-text').textContent = storedQuestions[currentQuestionIndex].question;
+  
+            // Update question count display (e.g., 1/10)
+            document.getElementsByClassName('timer')[1].textContent = `${currentQuestionIndex + 1}/${storedQuestions.length}`;
+  
+            // Load the choices for the current question
+            const choicesContainer = document.querySelector('.choices');
+            choicesContainer.innerHTML = ''; // Clear previous choices
+  
+            storedQuestions[currentQuestionIndex].choices.forEach((choice, index) => {
+                const choiceElement = document.createElement('div');
+                choiceElement.className = 'choice';
+                choiceElement.textContent = choice;
+                choiceElement.dataset.choice = choice;  // Store the choice in a data attribute
+  
+                // Add click event to select the answer
+                choiceElement.addEventListener('click', function() {
+                    // Remove 'selected' class from all choices
+                    document.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+                    
+                    // Add 'selected' class to the clicked choice
+                    this.classList.add('selected');
+                    
+                    // Store the selected answer
+                    selectedAnswer = this.dataset.choice;
+                });
+  
+                choicesContainer.appendChild(choiceElement);
+            });
+        } else {
+            console.log("No questions found in localStorage.");
+        }
+    }
+  
+    // Function to handle moving to the next question
+    document.getElementsByClassName('nextbtn')[0].addEventListener('click', () => {
+      clearInterval(timerInterval);
+      timeLeft = 10;
+      timerInterval = setInterval(updateTimer, 1000); 
+        const storedQuestions = JSON.parse(localStorage.getItem('ProfitandLossQues'));
+  
+        // Ensure an answer has been selected before moving to the next question
+        if (selectedAnswer !== null) {
+            userAnswers[currentQuestionIndex] = selectedAnswer;  // Store the user's selected answer
+            document.getElementsByClassName('score').innerHTML=calculateScore();
+  
+            if (currentQuestionIndex < storedQuestions.length - 1) {
+                currentQuestionIndex++;
+                
+                if (currentQuestionIndex === storedQuestions.length - 1) {
+                    document.getElementsByClassName('nextbtn')[0].textContent = "Submit";  // Change button text to Submit on the last question
+                }
+  
+                selectedAnswer = null;  // Reset selectedAnswer for the next question
+                loadQuestion();  // Load the next question
+            } else {
+           // alert(`Your score is ${calculateScore()}`);
+              calculateScore();
+              clearInterval(timerInterval); // Stop the timer when the submit button is pressed
+
+              displayResults();  // Submit the quiz and calculate the score
+          }
+        } else {
+            alert("Please select an answer before proceeding.");
+        }
+    });
+    function displayResults() {
+    const totalQuestions = ProfitandLossQuestions.length; // Change to your question array name
+    let attemptedQuestions = 0;
+    let correctAnswers = 0;
+    let wrongAnswers = 0;
+
+    // Calculate attempted, correct, and wrong answers
+    userAnswers.forEach((answer, index) => {
+        if (answer !== null) {
+            attemptedQuestions++;  // Count attempted questions
+            if (answer === ProfitandLossQuestions[index].correctAnswer) {
+                correctAnswers++;   // Count correct answers
+            } else {
+                wrongAnswers++;     // Count wrong answers
+            }
+        }
+    });
+
+    // Calculate score and percentage
+    const score = correctAnswers;
+    const percentage = (correctAnswers / totalQuestions) * 100;
+    userName=localStorage.getItem('userName');
+    // Update the result page
+    document.getElementById('username').innerHTML = `<strong>${userName}</strong> your result is:`;
+    document.getElementById('attempted').textContent = attemptedQuestions;
+    document.getElementById('correct').textContent = correctAnswers;
+    document.getElementById('wrong').textContent = wrongAnswers;
+    document.getElementById('score').textContent = score;
+    document.getElementById('percentage').textContent = percentage.toFixed(2);
+
+    // Show the result page
+    document.querySelector('.result-page').style.display = 'block';
+    
+
+    // Hide the quiz page (optional)
+    document.querySelector('.quiz-page').style.display = 'none';
+}
+
+    // Function to calculate the score
+    function calculateScore() {
+      let score = 0;
+  
+      // Calculate the score based on userAnswers and correct answers
+      ProfitandLossQues.forEach((question, index) => {
+          if (userAnswers[index] === question.correctAnswer) {
+              score++;  // Increase score for correct answers
+          }
+      });
+  
+      // Show the score in the div with class "score"
+      const scoreDiv = document.querySelector('.score');
+      scoreDiv.innerHTML = `<h2>SCORE: ${score}</h2>`;
+  
+      // Optionally save the score to localStorage
+      localStorage.setItem('userScore', score);
+      
+      // Logging for debugging
+      console.log('User Answers:', userAnswers);
+      console.log('Correct Answers:', ProfitandLossQues.map(q => q.correctAnswer));
+      console.log(`Score: ${score}`);
+  
+      return score;
+  }
+  document.getElementById('goHome').addEventListener('click', function() {
+    window.location.href = 'index.html';  // Navigate to index.html
+});
+
+document.getElementById('startAgain').addEventListener('click', function() {
+    // Reset the quiz state
+    currentQuestionIndex = 0;
+    userAnswers = [];
+    selectedAnswer = null;
+    timeLeft = 10;
+
+    // Reset the score display
+    document.querySelector('.score').innerHTML = `<h2>SCORE:</h2>`;
+
+    // Restart the timer
+    clearInterval(timerInterval); // Clear any existing interval
+    timerInterval = setInterval(updateTimer, 1000); // Start a new interval
+
+    // Load the first question again
+    loadQuestion();
+
+    // Hide the result page and show the quiz page
+    document.querySelector('.result-page').style.display = 'none';
+    document.querySelector('.quiz-page').style.display = 'block';
+});
+
+  </script>
+
+</body>
+</html>
+

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="welcome">
+        <img id="logo" src="images/logo.jpeg" alt="testBook" width="100vp">
+        <h1>Hello user!</h1>
+        <h3>Enter your name to continue the Quiz</h3>
+        <div id="username" class="username"><input required type="text" name="name" id="name" placeholder="ENTER YOUR NAME"><div id="enter" class="btn">Enter</div></div>
+        <p>YOU HAVE 10 SECONDS TO ANSWER EACH QUESTION</p>
+    </div>
+    
+    
+    <div >
+        <div class="title">
+            <h1>Select category</h1>
+        </div>
+        <div class="category">
+            <div id="pipesandcisterns" class="btn">Pipes And Cisterns</div>
+        <div id="probablity" class="btn">Probablity</div>
+        <div id="Ages" class="btn">Problems on Ages</div>
+        <div id="ProfitLoss" class="btn">Profit and loss</div>
+        </div>
+        
+    </div>
+    <script>
+        let timeLeft = 10;
+        let timerInterval;
+
+        // Start the countdown when the page loads
+        window.onload = function() {
+            timerInterval = setInterval(updateTimer, 1000); // Update every second
+
+            // Event listeners setup here after DOM is loaded
+            document.getElementById('enter').addEventListener('click', function(event) {
+                event.preventDefault();
+                
+                // Get the user's name from the input
+                let userName = document.getElementById('name').value;
+                
+                // Store the name in localStorage (so it persists)
+                localStorage.setItem('userName', userName);
+            });
+
+            
+            
+        };
+
+            document.getElementById('pipesandcisterns').addEventListener('click', function() {
+                let userName = localStorage.getItem('userName');
+                if (userName == null || userName === "") {
+                    alert('Please enter your name before you start the test');
+                } else {
+                    window.location.href = 'pipesandcisterns.html';
+                }
+            });
+            document.getElementById('probablity').addEventListener('click', function() {
+                let userName = localStorage.getItem('userName');
+                if (userName == null || userName === "") {
+                    alert('Please enter your name before you start the test');
+                } else {
+                    window.location.href = 'probablity.html';
+                }
+            });
+            document.getElementById('Ages').addEventListener('click', function() {
+                let userName = localStorage.getItem('userName');
+                if (userName == null || userName === "") {
+                    alert('Please enter your name before you start the test');
+                } else {
+                    window.location.href = 'problemsonages.html';
+                }
+            });
+            document.getElementById('ProfitLoss').addEventListener('click', function() {
+                let userName = localStorage.getItem('userName');
+                if (userName == null || userName === "") {
+                    alert('Please enter your name before you start the test');
+                } else {
+                    window.location.href = 'profitandloss.html';
+                }
+            });
+        function updateTimer() {
+            if (timeLeft > 0) {
+                timeLeft--;
+                document.getElementById('time').textContent = timeLeft; // Update the timer display
+            } else {
+                // When time is up, disable the input and the "Enter" button
+                clearInterval(timerInterval);
+                document.getElementById('name').disabled = true;
+                document.getElementById('enter').disabled = true;
+                document.getElementById('enter').style.backgroundColor= grey;
+
+                alert('Time is up! You cannot enter your name now.');
+            }
+        }
+
+        
+        
+    </script>
+</body>
+</html>

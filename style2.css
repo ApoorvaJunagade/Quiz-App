@@ -1,0 +1,160 @@
+
+
+#title{
+    text-align: center;
+    
+}
+h2{
+    font-weight: 100;
+}
+.container{
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 50px;
+}
+.containerNextbtn{
+    display: flex;
+    justify-content: center;
+    padding: 0px 50px;
+}
+.timer{
+    border: 2px solid teal;
+    border-radius: 50%;
+    align-self: center;
+    color: teal;
+    font-weight: bold;
+    font-size: x-large;
+    height:55px;
+    width:55px;
+    display: grid;
+    place-items: center; /* Centers both vertically and horizontally */
+    z-index: 1;
+    background-color: white;
+}
+.question{
+    border: 1px solid grey;
+
+}
+
+.quiz-container {
+    margin: 20px;
+    /* display: flex; */
+    justify-content: center;
+    padding: 0px 50px;
+    border: 1px solid grey;
+    padding-bottom:50px;
+    margin-left: 100px;
+    margin-right: 100px;
+
+}
+.question-number {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    padding: 0px 50px;
+    position: absolute;
+    top: 110px;
+    right: 650px;
+}
+.question-text {
+    font-size: 16px;
+    margin-bottom: 15px;
+    text-align: center;
+    position:relative;
+    top:50px
+}
+.choices {
+    display: grid;
+    grid-template-columns: auto auto;
+    margin-bottom: 20px;
+    margin:50px;
+}
+.choice{
+    border: 2px solid rgb(121, 121, 175);
+    color:black;
+    background-color: lightblue;
+    margin:50px;
+    padding:10px;
+    text-align: center;
+    border-radius: 50px;
+    font-size: large;
+}
+.choice:hover{
+    background-color: rgb(121, 121, 175);
+}
+.navigation {
+    margin-top: 20px;
+}
+a{
+    text-decoration: none;
+    color: teal;
+}
+.nextbtn {
+    display: flex;
+    border: 2px solid teal;
+    border-radius: 50px;
+    padding:10px;
+    width:200px;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    font-size: large;
+    font-weight: bold;
+    color:teal;
+}
+.result{
+    display: flex;
+    justify-content: space-around;
+}
+.resultbtn{
+    border: 2px solid teal;
+    border-radius: 50px;
+    padding:10px;
+    width:200px;
+    text-align: center;
+    justify-content: space-around;
+    align-content: center;
+    font-size: large;
+    font-weight: bold;
+    color:teal;
+}
+/* a:hover{
+    color: white;
+} */
+.resultbtn:hover{
+    color:white;
+    background-color: teal;
+    font-size: large;
+    font-weight: bold;
+}
+.nextbtn:hover{
+    color:white;
+    background-color: teal;
+    font-size: large;
+    font-weight: bold;
+}
+
+.selected {
+    background-color: rgb(121, 121, 175);
+    border-color: white;
+    color: white;
+}
+.result-page {
+    display: none;  /* Hidden initially */
+    text-align: center;  /* Center text horizontally */
+    display: flex;  /* Use Flexbox */
+    justify-content: center;  /* Center horizontally */
+    align-items: center;  /* Center vertically */
+    height: 80vh;  /* Full viewport height */
+    flex-direction: column;  /* Stack elements vertically */
+    padding: 20px;  /* Add some padding */
+}
+
+.result-page h2 {
+    margin-bottom: 20px;  /* Space below the heading */
+}
+
+.result-page p {
+    font-size: 18px;  /* Adjust text size */
+    margin: 10px 0;  /* Space between paragraphs */
+}

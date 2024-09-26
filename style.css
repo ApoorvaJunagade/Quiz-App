@@ -1,0 +1,40 @@
+
+.welcome{
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    padding:30px;
+    
+}
+#logo{
+    justify-self: center;
+}
+h1{
+    color: teal;
+    
+}
+.title{
+    text-align: center;
+    color: teal;
+}
+input{
+    margin-right:20px;
+    width:300px;
+}
+.username{
+    display:flex;
+    justify-content: center;
+}
+.category{
+    display:grid;
+    grid-template-columns: auto auto;
+    padding: 40px;
+    gap: 40px;
+}
+.btn{
+    height: 20px;
+    border:solid  1px teal;
+    background-color: lightblue;
+    text-align: center;
+    align-content: center;
+}
